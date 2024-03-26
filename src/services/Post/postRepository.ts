@@ -5,7 +5,7 @@ import { IPostFInd, IPostModel, IPostModelResponse } from '../../models/Post'
 import { Log } from '../../utils'
 import { HTTPErrors } from '../../errors'
 import { PIPELINE } from './constants'
-import { IOptionsFind, SortOrderEnum } from '../../interfaces'
+import { IOptionsFind } from '../../interfaces'
 
 const COLLECTION_NAME = 'posts'
 const BASE_LOG = '[PostRepository] ::'
@@ -80,7 +80,7 @@ export class PostRepository {
     const options = {
       pageNumber: 1,
       pageSize: 10,
-      sortBy: { username: SortOrderEnum.ASC as SortDirection }
+      sortBy: { createdAt: 1 as SortDirection }
     }
     try {
       const posts = await this.find({ _id: new ObjectId(postId) }, options)
