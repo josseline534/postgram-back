@@ -1,0 +1,18 @@
+org: josscode
+app: postgram-back
+service: postgram-back
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: dist/index.handler
+    events:
+      - httpApi: '*'
+      - cors: true
+
+plugins:
+  - serverless-offline
