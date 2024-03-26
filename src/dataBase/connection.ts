@@ -15,13 +15,9 @@ const client = new MongoClient(URI, {
   }
 })
 
-let connection: typeof MongoClient | null = null
-
 export const connectToMongoDB = async () => {
   try {
-    if (!connection) {
-      connection = await client.connect()
-    }
+    await client.connect()
     log.info('.[connectToMongoDB]:: Connected to MongoDB')
   } catch (error) {
     log.error('.[connectToMongoDB] :: Error connecting to MongoDB:', error)
@@ -31,9 +27,6 @@ export const connectToMongoDB = async () => {
 
 export const getDataBase = async () => {
   try {
-    if (!connection) {
-      await connectToMongoDB()
-    }
     return await client.db(ServiceEnv.DB_NAME)
   } catch (error) {
     log.error('.[getDataBase] :: Error getting to MongoDB:', error)
