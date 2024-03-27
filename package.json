@@ -9,9 +9,9 @@
   "scripts": {
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
-    "dev": "npx eslint --fix . && npx tsc && serverless offline",
-    "build": "npx eslint --fix . && npx tsc",
-    "deploy": "npx eslint --fix . && npx tsc && serverless deploy"
+    "build": "npm run lint:fix && npx tsc",
+    "dev": "npm run lint:fix && npm run build && serverless offline",
+    "deploy": "npm run lint:fix && npm run build && serverless deploy"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^6.3.12",
