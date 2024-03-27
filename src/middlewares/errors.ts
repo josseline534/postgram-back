@@ -1,18 +1,19 @@
-import { type Request, type ErrorRequestHandler, type Response } from 'express'
+import { Request, ErrorRequestHandler, Response } from 'express'
 
-import { HTTPErrors, type IHTTPError } from '../errors'
+import { HTTPErrors, IHTTPError } from '../errors'
 import { Log } from '../utils'
 
 const ERROR_TAG = '[ERROR-HANDLER]'
+const log = new Log(ERROR_TAG)
 
-// eslint-disable-next-line max-params
-export const ErrorHandler: ErrorRequestHandler = (error: IHTTPError, { method, originalUrl }, res: Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, max-params
+export const ErrorHandler: ErrorRequestHandler = (error: IHTTPError, { method, originalUrl }, res: Response, _) => {
   if ('status' in error) {
-    Log.error(ERROR_TAG, { method, originalUrl, status: error.status, message: error.message, type: error.type })
+    log.error(ERROR_TAG, { method, originalUrl, status: error.status, message: error.message, type: error.type })
     delete error.url
     res.status(error.status).json(error)
   } else {
-    Log.error(ERROR_TAG, { method, originalUrl }, error)
+    log.error(ERROR_TAG, { method, originalUrl }, error)
     res.status(500).json(HTTPErrors.internalServerError())
   }
 }

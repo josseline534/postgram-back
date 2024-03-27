@@ -24,5 +24,5 @@ export const SchemaValidator = (schema: unknown, check: checkType = 'body') =>
 
 const getJoiError = ({ details }: Joi.ValidationError): IHTTPErrorParams => {
   const { message }: { message: string } = details[0]
-  return { message: message.replaceAll(' ', '_').replaceAll('"', '') }
+  return { entity: 'schema', message: message.replaceAll(' ', '_').replaceAll('"', '') }
 }
